@@ -1,0 +1,6 @@
+/uploads/*
+/pgdata/*
+/*/node_modules/*
+```
+directusdata/uploads/*
+/*/package-lock.json
