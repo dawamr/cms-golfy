@@ -1,12 +1,12 @@
 version: '3'
 services:
   database:
-    container_name: dbdirectus_myid
+    container_name: dbdirectus_golfy
     image: postgis/postgis:15-3.3
     # Required when running on platform other than amd64, like Apple M1/M2:
     # platform: linux/amd64
     ports:
-      - 5102:5432
+      - 5102:5433
     volumes:
       - ./pgdata/database:/var/lib/postgresql/data
     networks:
@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_USER: 'dawamr'
       POSTGRES_PASSWORD: '@Renewable22'
-      POSTGRES_DB: 'cmsmyid'
+      POSTGRES_DB: 'cmsgolfy'
     restart: always
   # cache:
       #container_name: directus-cache
@@ -23,10 +23,10 @@ services:
       #  - directus
       #restart: always
   directus:
-    container_name: paneldirectus_myid
+    container_name: paneldirectus_golfy
     image: directus/directus:10.7.2
     ports:
-      - 5101:8055
+      - 5101:8056
     volumes:
       - ./directusdata/uploads:/directus/uploads
       - ./directusdata/extensions:/directus/extensions  
@@ -36,21 +36,21 @@ services:
     depends_on:
       - database
     environment:
-      KEY: 'myAppKey'
-      SECRET: '1234567890-0987654321'
+      KEY: 'apiKey'
+      SECRET: 'hit'
       # ... (your other environment configurations remain the same)
       DB_CLIENT: 'pg'
       DB_HOST: 'database'  # Use the service name of the PostgreSQL container in the same network
-      DB_PORT: '5432'
-      DB_DATABASE: 'cmsmyid'
+      DB_PORT: '5433'
+      DB_DATABASE: 'cmsgolfy'
       DB_USER: 'dawamr'
       DB_PASSWORD: '@Renewable22'
       # ... (your other environment configurations remain the same)
-      CACHE_ENABLED: 'false'
+      CACHE_ENABLED: 'true'
       CACHE_STORE: 'redis'
-      CACHE_TTL: '3m'
+      CACHE_TTL: '1m'
       
-      REDIS: 'redis://default:Renewable22@175.106.9.60:6379/7'
+      REDIS: 'redis://default:Renewable22@175.106.9.60:6379/8'
       
       RATE_LIMITER_ENABLED: 'false'
       RATE_LIMITER_POINTS: '25'
